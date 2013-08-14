@@ -1,11 +1,13 @@
-var renderHash = function(text, before) {
-	var sha = before?text:SHA1(text);
-	var hexes = sha.split(/(.{6})/g).filter(function(val) {
+var renderHash = function(text, encoder, before) {
+	// Divide the hash into colors
+	var hash = before ? text : encoder(text);
+	var hexes = hash.split(/(.{6})/g).filter(function(val) {
 		return val != "";
 	}).map(function(val) {
 		return "#" + (val.length == 6 ? val : val+"00");
 	});	
 	
+	// Render the colors as a gradient.
 	var css = [
 		"background-image: -webkit-gradient(",
 		"	linear,",
@@ -23,20 +25,25 @@ var renderHash = function(text, before) {
 	css = (before ? ".password:before {" : ".password:after {") + css + "}";
 	$(before ? "#auto_style1" : "#auto_style2").text(css);
 };
-$.fn.hashword = function(password, fetch) {
+$.fn.hashword = function(password, fetch, encoder) {
+	// Wrap inputs in elements for which ::after is allowed.
 	$(this).wrap("<span class='username'></span>");
 	$(password).wrap("<span class='password'></span>");
 	
-	$(this).change(function() {
-		$('<style id="auto_style1"></style>').appendTo("head");
-		$('<style id="auto_style2"></style>').appendTo("head");
-		
+	// Create `style` elements for the dynamic gradients.
+	$('<style id="auto_style1"></style>').appendTo("head");
+	$('<style id="auto_style2"></style>').appendTo("head");
+	
+	// When username changes, render the correct hash.
+	$(this).change(function() {			
 		var user = $(this).val();		
 		fetch(user, function(sha) {
-			renderHash(sha, true);
+			renderHash(sha, encoder, true);
 		});						
-	});				
+	});	
+	
+	// When password changes, render bottom hash.			
 	$(password).keyup(function() {
-		renderHash($(this).val());
+		renderHash($(this).val(), encoder);
 	});
 };
