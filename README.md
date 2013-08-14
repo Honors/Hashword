@@ -17,3 +17,7 @@ $("#username").hashword("#password", function(user, cb) {
 	cb(SHA1(entry));
 });
 ```
+
+Security
+--------
+Keep in mind, that of course the encoding should be more sophisticated than a plain SHA, and not made evident on the client side. Rather, you should fetch the hash from the server-side. Exposing such an endpoint will essentially allow the same analysis by hackers as a database dump. This means that you will need an algorithm effective enough to survive a database-dump analysis.
