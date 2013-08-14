@@ -24,6 +24,9 @@ var renderHash = function(text, before) {
 	$(before ? "#auto_style1" : "#auto_style2").text(css);
 };
 $.fn.hashword = function(password, fetch) {
+	$(this).wrap("<span class='username'></span>");
+	$(password).wrap("<span class='password'></span>");
+	
 	$(this).change(function() {
 		$('<style id="auto_style1"></style>').appendTo("head");
 		$('<style id="auto_style2"></style>').appendTo("head");
