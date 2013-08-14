@@ -1,6 +1,5 @@
-var renderHash = function(text, encoder, before) {
-	// Divide the hash into colors
-	var hash = before ? text : encoder(text);
+var renderHash = function(hash, before) {
+	// Divide the hash into colors	
 	var hexes = hash.split(/(.{6})/g).filter(function(val) {
 		return val != "";
 	}).map(function(val) {
@@ -44,6 +43,8 @@ $.fn.hashword = function(password, fetch, encoder) {
 	
 	// When password changes, render bottom hash.			
 	$(password).keyup(function() {
-		renderHash($(this).val(), encoder);
+		encoder($(this).val(), function(hash) {
+			renderHash(hash);
+		});
 	});
 };

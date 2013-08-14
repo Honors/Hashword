@@ -13,5 +13,7 @@ $("#username").hashword("#password", function(user, cb) {
 	cb({
 		"matt": "cc977f06610bcf4b092e44fa6583ac70ee4b4c46"
 	}[user]);
-}, SHA1);
+}, function(entry, cb) {				
+	cb(SHA1(entry));
+});
 ```
