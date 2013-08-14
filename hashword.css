@@ -1,0 +1,33 @@
+.password, .username {
+	position: relative;
+	font-size: 24px;
+	height: 40px;
+	outline: none;
+}
+.password:before, .password:after {
+	content: "";
+	background: red;
+	border-right: 1px solid #333;
+	border-left: 1px solid #333;
+	width: 100%;
+	height: 2px;
+	display: block;
+	position: absolute;
+	top: -2px;		
+	margin-left: -3px;
+	padding: 1px;
+	background-image: -webkit-gradient(
+		linear,
+		left top,
+		right top,
+		color-stop(0, rgb(224,33,33)),
+		color-stop(0.25, rgb(60,97,255)),
+		color-stop(0.5, rgb(92,255,125)),
+		color-stop(0.75, rgb(255,117,246)),
+		color-stop(1, rgb(255,241,153))
+	);
+}
+.password:after {
+	top: auto;
+	bottom: -2px;			
+}

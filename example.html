@@ -1,0 +1,55 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<title>Login</title>		
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+		<script src="sha1.js"></script>
+		<script src="hashword.js"></script>		
+		<link rel="stylesheet" href="hashword.css">
+		
+		<style>
+			body {
+				background: #ccc;
+				background-size: 100%;
+				font-family: 'Helvetica Neue', Helvetic, sans-serif;
+			}
+			#content {
+				margin: auto;
+				width: 600px;
+				height: 100px;
+				background: #333;
+				padding: 20px;
+				padding-bottom: 40px;
+				margin-top: 50px;
+				background: white;
+				}
+				#content h2 {
+					margin-top: 0;
+					text-align: center;
+					font-size: 28px;
+					padding-bottom: 10px;
+					border-bottom: 3px solid #ccc;
+				}		
+			#content form {
+				text-align: center;
+			}	
+		</style>		
+	</head>
+	<body>
+		<div id="content">
+			<h2>Login</h2>
+			<form>
+				<input type="text" class="username">
+				<input type="password" class="password">
+			</form>
+			<script>				
+				$(".username").hashword(".password", function(user, cb) {
+					cb({
+						"matt": "cc977f06610bcf4b092e44fa6583ac70ee4b4c46"
+					}[user]);
+				});
+			</script>
+		</div>
+	</body>
+</html>
